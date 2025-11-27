@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException,BackgroundTasks
 from sqlalchemy.orm import session
 from models.modelos import Usuario
 from dependecias import pegar_sessao,verificar_usuario
@@ -7,6 +7,7 @@ from schema.schemas import UsuarioSchema,LoginSchema
 from main import bcrypt_context,SECRETY_KEY,ALGORITHM,ACESS_TOKEN_MINUTO_EXPIRACAO
 from datetime import datetime,timedelta,timezone
 from fastapi.security import OAuth2PasswordRequestForm
+from utils.email import enviar_mensagem
 
 auth_roteador = APIRouter(prefix="/auth", tags=["autenticação"])
 
@@ -25,7 +26,7 @@ def autenticar_usuario(email,senha,session):
     return usuario
 
 @auth_roteador.post("/criar_conta")
-async def criar_conta(usuario_schema: UsuarioSchema, session: session = Depends(pegar_sessao)):
+async def criar_conta(usuario_schema: UsuarioSchema,background_tasks:BackgroundTasks, session: session = Depends(pegar_sessao)):
     usuario = session.query(Usuario).filter(Usuario.email == usuario_schema.email).first()
 
     if usuario:
@@ -35,6 +36,7 @@ async def criar_conta(usuario_schema: UsuarioSchema, session: session = Depends(
         novo_usuario = Usuario(usuario_schema.nome,usuario_schema.email,senha_criptografada, usuario_schema.admin, usuario_schema.plano)
         session.add(novo_usuario)
         session.commit()
+        background_tasks.add_task(enviar_mensagem,email=novo_usuario.email,nome=novo_usuario.nome)
         return{
             "mensagem":"usuario cadastrado com sucesso"
         }
