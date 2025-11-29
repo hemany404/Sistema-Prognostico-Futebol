@@ -2,16 +2,16 @@ from fastapi import APIRouter,Depends,HTTPException
 from dependecias import verificar_usuario,pegar_sessao
 from models.modelos import Usuario
 from sqlalchemy.orm import session
-from schema.schemas import PagarPlanoSchema
+from schema.schemas import PagarPlanoSchema,RespostaUsuarioSchema
 from datetime import datetime,timedelta,timezone
+from typing import List
 
 
 usuario_roteador = APIRouter(prefix="/usuario", tags=["usuario"])
 
 
 
-
-@usuario_roteador.get("/usuario/me")
+@usuario_roteador.get("/usuario/me", response_model=RespostaUsuarioSchema)
 async def usuario_dados(usuario: Usuario=Depends(verificar_usuario),session: session = Depends(pegar_sessao)):
         usuario = session.query(Usuario).filter(Usuario.id == usuario.id).first()
         if usuario.data_expiracao_plano:
