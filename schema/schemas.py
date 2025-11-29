@@ -63,3 +63,21 @@ class  EditarSchema(BaseModel):
 
     class config:
         from_attributes = True
+
+class RespostaInfoSchema(BaseModel):
+    nome: str
+    email: str
+    plano: str
+    status_pagamento:str
+  
+    class config:
+        from_attributes = True
+
+class RespostaUsuarioSchema(BaseModel):
+    usuario: RespostaInfoSchema
+    mensagem: str
+  
+    class config:
+        from_attributes = True        
+    
+
