@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from enum import Enum
-from datetime import datetime,timedelta
+from datetime import datetime
 
 class UsuarioSchema(BaseModel):
     nome: str

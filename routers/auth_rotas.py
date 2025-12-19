@@ -49,7 +49,7 @@ async def login(login_schema: LoginSchema, session: session = Depends(pegar_sess
     
     else:
         acess_token = criar_token(usuario.id)
-        refresh_token = criar_token(usuario.id, duracao_token=timedelta(days=30))
+        refresh_token = criar_token(usuario.id, duracao_token=timedelta(days=30))                              
         return{
             "access_token":acess_token,
             "refresh_token":refresh_token,

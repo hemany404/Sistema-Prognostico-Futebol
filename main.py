@@ -11,6 +11,7 @@ ACESS_TOKEN_MINUTO_EXPIRACAO = int(os.getenv("ACESS_TOKEN_MINUTO_EXPIRACAO"))
 
 app = FastAPI()
 
+
 bcrypt_context = CryptContext(schemes=["bcrypt"],deprecated= "auto")
 oauth2_schema = OAuth2PasswordBearer(tokenUrl="auth/login-form")
 

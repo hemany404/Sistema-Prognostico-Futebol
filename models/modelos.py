@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine,Column,DateTime, Integer, String,Float, Boolean, ForeignKey   
 from sqlalchemy.orm import declarative_base
 from datetime import datetime, timezone
-from sqlalchemy.sql import func
+
 
 db = create_engine("sqlite:///banco.db")
 
