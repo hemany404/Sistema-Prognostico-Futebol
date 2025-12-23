@@ -85,7 +85,6 @@ cd seu-projeto
 
 2️⃣ Criar Ambiente Virtual
 python -m venv venv
-source venv/bin/activate # Linux/Mac
 venv\Scripts\activate    # Windows
 
 3️⃣ Instalar Dependências
@@ -95,7 +94,8 @@ pip install -r requirements.txt
 DATABASE_URL=sqlite:///nome_banco
 SECRET_KEY=sua_chave_secreta
 ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
+ACCESS_TOKEN_EXPIRE_MINUTES=30 ou quanto tempo tu quiseres 
+
 
 5️⃣ Rodar Migrações
 alembic upgrade head
