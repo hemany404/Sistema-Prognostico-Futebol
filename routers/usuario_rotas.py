@@ -12,7 +12,8 @@ usuario_roteador = APIRouter(prefix="/usuario", tags=["usuario"])
 
 
 @usuario_roteador.get("/usuario/me", response_model=RespostaUsuarioSchema)
-async def usuario_dados(usuario: Usuario=Depends(verificar_usuario),session: session = Depends(pegar_sessao)):
+async def usuario_dados(usuario: Usuario=Depends(verificar_usuario),
+                        session: session = Depends(pegar_sessao)):
         usuario = session.query(Usuario).filter(Usuario.id == usuario.id).first()
         if usuario.data_expiracao_plano:
             mensagem ="o seu plano expira em:" + usuario.data_expiracao_plano.strftime("%d/%m/%Y")
@@ -24,7 +25,9 @@ async def usuario_dados(usuario: Usuario=Depends(verificar_usuario),session: ses
         }
 
 @usuario_roteador.post("/pagar")
-async def pagar_plano(pagar_schema: PagarPlanoSchema,session: session = Depends(pegar_sessao),usuario: Usuario = Depends(verificar_usuario)):
+async def pagar_plano(pagar_schema: PagarPlanoSchema,
+                      session: session = Depends(pegar_sessao),
+                      usuario: Usuario = Depends(verificar_usuario)):
     
     
     if usuario.data_expiracao_plano and usuario.data_expiracao_plano.tzinfo is None:
