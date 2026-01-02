@@ -85,27 +85,20 @@ async def  prognosticos_gratis(session: session = Depends(pegar_sessao)):
 @prognosticos_roteador.get("/prognostico/premium")
 async def  prognosticos_premium(session: session = Depends(pegar_sessao),usuario: Usuario = Depends(verificar_plano_usuario("PREMIUM"))):
     expiracao = verificar_expiracao(usuario,session)
-    if usuario.data_expiracao_plano :
-        mensagem ="o seu plano expira em:" + usuario.data_expiracao_plano.strftime("%d/%m/%Y")
-    else:
-        mensagem= "Ainda não ativou nenhum plano"
+    
     prognostico = session.query(Prognostico).filter(Prognostico.plano == "PREMIUM").all()
     return{
         "Total":len(prognostico),
-        "PREMIUM":prognostico,
-        "mensagem":mensagem
+        "PREMIUM":prognostico,             
+        "aviso":expiracao
     }
 
 @prognosticos_roteador.get("/prognostico/vip")
 async def  prognosticos_vip(session: session = Depends(pegar_sessao),usuario: Usuario = Depends(verificar_plano_usuario("VIP"))):
     expiracao = verificar_expiracao(usuario,session)
-    if usuario.data_expiracao_plano:
-        mensagem ="o seu plano expira em:" + usuario.data_expiracao_plano.strftime("%d/%m/%Y")
-    else:
-        mensagem= "Ainda não ativou nenhum plano"
     prognostico = session.query(Prognostico).filter(Prognostico.plano == "VIP").all()
     return{
         "Total":len(prognostico),
         "VIP":prognostico,
-        "mensagem":mensagem
+        "aviso":expiracao
     }
