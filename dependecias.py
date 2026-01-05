@@ -34,6 +34,7 @@ def verificar_expiracao(usuario,session):
         usuario.status_pagamento = "EXPIRADO"
         usuario.data_expiracao_plano = None
         session.commit()
+        session.refresh(usuario)
     if usuario.data_expiracao_plano :
         mensagem ="o seu plano expira em:" + usuario.data_expiracao_plano.strftime("%d/%m/%Y")
     else:

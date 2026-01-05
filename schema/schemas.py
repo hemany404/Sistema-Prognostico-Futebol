@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional
 from enum import Enum
+from fastapi import Path
 from datetime import datetime
 
 class UsuarioSchema(BaseModel):
-    nome: str
+    nome: str = Path(...,min_length=3,max_length=10)
     email: str
     senha: str
     admin: Optional[bool]
@@ -15,7 +16,7 @@ class UsuarioSchema(BaseModel):
         from_attributes = True
 
 class PlanoSchema(BaseModel):
-    nome: str
+    nome: str =Path(...,min_length=3,max_length=10)
     preco: float
     duracao: int    
 
