@@ -2,12 +2,6 @@ Sobre o Projeto
 
 Este é um sistema em desenvolvimento que permite gerenciar prognósticos esportivos (grátis,premium e vip), com autenticação, controle de assinaturas e expiração automática de planos.
 
-Ele foi projetado com foco em:
-
-✔ Performance
-✔ Segurança
-✔ Escalabilidade
-✔ Experiência do usuário com APIs claras
 
 Funcionalidades
  Usuários:
